@@ -1,0 +1,27 @@
+{
+  "name": "sigeb-asistencia",
+  "version": "1.0.0",
+  "description": "Sistema Integral de Brigadistas - Módulo de Asistencia por Código QR y Ubicación",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "keywords": [
+    "sigeb",
+    "servicio-social",
+    "uas",
+    "asistencia",
+    "qr",
+    "geolocalizacion",
+    "clean-architecture"
+  ],
+  "author": "Erik Ortiz Leal",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "mysql2": "^3.9.7"
+  }
+}
