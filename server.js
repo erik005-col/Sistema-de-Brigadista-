@@ -26,9 +26,9 @@ app.use(express.static(__dirname));
 // Registrar rutas de la API bajo /api
 app.use('/api', asistenciaRoutes);
 
-// Ruta raíz por defecto -> redirige al escáner móvil
+// Ruta raíz por defecto -> muestra la pantalla de inicio de sesión
 app.get('/', (req, res) => {
-  res.redirect('/escaner_qr.html');
+  res.redirect('/login.html');
 });
 
 // Iniciar servidor

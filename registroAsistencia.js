@@ -6,7 +6,7 @@ const CENTRO_LAT = 25.7952;
 const CENTRO_LON = -108.9955;
 const RADIO_PERMITIDO_METROS = 100; 
 
-// Fórmula matemática de Haversine para calcular distancia esférica en metros
+
 function calcularDistanciaMetros(lat1, lon1, lat2, lon2) {
   const R = 6371e3; // Radio de la Tierra en metros
   const φ1 = lat1 * Math.PI / 180;
@@ -22,7 +22,7 @@ function calcularDistanciaMetros(lat1, lon1, lat2, lon2) {
   return Math.round(R * c); 
 }
 
-// Ruta POST principal para el registro de asistencia mediante código QR y GPS
+
 router.post('/api/asistencia/registrar', async (req, res) => {
   try {
     const { codigo_qr, latitud, longitud } = req.body;
@@ -37,7 +37,7 @@ router.post('/api/asistencia/registrar', async (req, res) => {
       });
     }
 
-    // 2. Validar que el código QR exista y esté vigente en la base de datos
+   
     const qrValido = await db.query(
       'SELECT id_qr, codigo, descripcion FROM codigos_qr WHERE codigo = ? AND vigente = 1', 
       [codigo_qr]
@@ -50,7 +50,7 @@ router.post('/api/asistencia/registrar', async (req, res) => {
       });
     }
 
-    // 3. Validar ubicación GPS respecto al centro del Ejido
+    
     const distancia = calcularDistanciaMetros(latitud, longitud, CENTRO_LAT, CENTRO_LON);
     const esUbicacionValida = distancia <= RADIO_PERMITIDO_METROS;
 
@@ -69,14 +69,14 @@ router.post('/api/asistencia/registrar', async (req, res) => {
       });
     }
 
-    // 4. Determinar si corresponde a ENTRADA o SALIDA en la fecha actual
+   
     const hoy = new Date().toISOString().split('T')[0];
     const jornadaAbierta = await db.query(
       'SELECT * FROM asistencias WHERE id_brigadista = ? AND fecha = ? AND hora_salida IS NULL',
       [id_brigadista, hoy]
     );
 
-    // Caso A: No hay jornada abierta hoy -> Se registra la ENTRADA
+    
     if (jornadaAbierta.length === 0) {
       await db.query(
         `INSERT INTO asistencias 
@@ -93,7 +93,7 @@ router.post('/api/asistencia/registrar', async (req, res) => {
       });
     } 
     
-    // Caso B: Ya existe una entrada registrada hoy sin salida -> Se registra la SALIDA y se calculan las horas
+    
     else {
       const registro = jornadaAbierta[0];
       const entrada = new Date(registro.hora_entrada);

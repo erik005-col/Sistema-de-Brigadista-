@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SIGEB - Inicio de Sesión</title>
+
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+  <style>
+    body {
+      background-color: #eef2f6;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .card-login {
+      border: none;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+      max-width: 850px;
+      width: 100%;
+    }
+    .panel-izquierdo {
+      background: linear-gradient(135deg, #0f3460, #1a4d80);
+      color: #ffffff;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+    .panel-derecho {
+      background: #ffffff;
+      padding: 40px;
+    }
+    .btn-rol {
+      padding: 12px;
+      font-weight: 600;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container p-3">
+    <div class="card card-login mx-auto">
+      <div class="row g-0">
+        <!-- Panel Izquierdo Azul (Boceto 1) -->
+        <div class="col-md-5 panel-izquierdo">
+          <i class="bi bi-people-fill display-3 mb-3 text-white"></i>
+          <h2 class="fw-bold mb-1">SIGEB</h2>
+          <p class="small text-white-50 mb-4">Sistema Integral de Brigadistas<br>Ejido Ricardo Flores Magón, Sinaloa</p>
+          <div class="border-top border-white-50 pt-3 w-100">
+            <p class="fst-italic mb-0 small">"Tu esfuerzo también se registra"</p>
+          </div>
+        </div>
+
+        <!-- Panel Derecho: Formulario de Acceso por Rol -->
+        <div class="col-md-7 panel-derecho">
+          <div class="mb-4">
+            <h3 class="fw-bold text-dark mb-1">Iniciar sesión</h3>
+            <p class="text-muted small">Selecciona tu rol para acceder al módulo correspondiente</p>
+          </div>
+
+          <div class="d-grid gap-3 mb-4">
+            <!-- Acceso Brigadista (Solo Escáner y Asistencia) -->
+            <a href="escaner_qr.html" class="btn btn-primary btn-rol d-flex align-items-center justify-content-between">
+              <span><i class="bi bi-phone me-2"></i>Entrar como Brigadista</span>
+              <i class="bi bi-arrow-right"></i>
+            </a>
+            
+            <!-- Acceso Asesora (Solo Configuración y Control) -->
+            <a href="configurar_qr.html" class="btn btn-outline-secondary btn-rol d-flex align-items-center justify-content-between">
+              <span><i class="bi bi-shield-lock me-2"></i>Entrar como Asesora (Admin)</span>
+              <i class="bi bi-arrow-right"></i>
+            </a>
+          </div>
+
+          <div class="alert alert-light border small text-muted mb-0">
+            <i class="bi bi-shield-check text-success me-1"></i>
+            <strong>Control de Acceso (Actividad 2.3):</strong> Las pantallas están estrictamente separadas; los brigadistas no tienen acceso a la configuración ni descarga del código QR.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
