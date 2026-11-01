@@ -123,29 +123,6 @@
         </div>
       </div>
     </div>
-
-    <!-- Historial de asistencias registradas -->
-    <div class="card card-sigeb mt-4 p-3">
-      <h6 class="fw-bold text-secondary mb-3">
-        <i class="bi bi-clock-history me-2 text-primary"></i>Historial de Asistencias Recientes
-      </h6>
-      <div class="table-responsive">
-        <table class="table table-hover align-middle mb-0">
-          <thead class="table-light">
-            <tr>
-              <th>Fecha</th>
-              <th>Entrada</th>
-              <th>Salida</th>
-              <th>Estado</th>
-              <th>Horas de Jornada</th>
-            </tr>
-          </thead>
-          <tbody id="historial-asistencias-body">
-            <!-- Se llena dinámicamente -->
-          </tbody>
-        </table>
-      </div>
-    </div>
   </div>
 
   <script>
@@ -219,7 +196,7 @@
       }
     };
 
-    // 5. Enviar asistencia al servidor (con soporte para pruebas locales)
+    // 5. Enviar asistencia al servidor
     async function enviarAsistencia(codigoQr, latitud, longitud) {
       try {
         const response = await fetch('/api/asistencia/registrar', {
@@ -274,26 +251,7 @@
         return;
       }
 
-      let asistencias = JSON.parse(localStorage.getItem("sigeb_asistencias") || "[]");
-      const hoy = new Date().toISOString().slice(0, 10);
-      const index = asistencias.findIndex(a => a.fecha === hoy && !a.hora_salida);
-
-      if (index === -1) {
-        asistencias.push({
-          fecha: hoy,
-          hora_entrada: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-          hora_salida: null,
-          horas_jornada: "--"
-        });
-        mostrarMensaje("exito", "¡Entrada Registrada!", `Ubicación válida a ${distancia} m del centro del Ejido.`);
-      } else {
-        asistencias[index].hora_salida = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-        asistencias[index].horas_jornada = "Jornada registrada";
-        mostrarMensaje("exito", "¡Salida Registrada!", `Asistencia completada para el día de hoy.`);
-      }
-
-      localStorage.setItem("sigeb_asistencias", JSON.stringify(asistencias));
-      cargarHistorial();
+      mostrarMensaje("exito", "¡Asistencia Registrada!", `Ubicación válida a ${distancia} m del centro del Ejido.`);
     }
 
     function mostrarMensaje(tipo, titulo, detalle) {
@@ -311,28 +269,6 @@
       t.innerText = titulo;
       d.innerText = detalle;
     }
-
-    function cargarHistorial() {
-      const tbody = document.getElementById("historial-asistencias-body");
-      const asistencias = JSON.parse(localStorage.getItem("sigeb_asistencias") || "[]");
-
-      if (asistencias.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="5" class="text-center text-muted">Aún no hay registros de asistencia hoy.</td></tr>`;
-        return;
-      }
-
-      tbody.innerHTML = asistencias.slice(-5).reverse().map(a => `
-        <tr>
-          <td>${a.fecha}</td>
-          <td>${a.hora_entrada}</td>
-          <td>${a.hora_salida || '<span class="badge bg-warning text-dark">En curso...</span>'}</td>
-          <td><span class="badge bg-success">Válida</span></td>
-          <td><strong>${a.horas_jornada}</strong></td>
-        </tr>
-      `).join("");
-    }
-
-    document.addEventListener("DOMContentLoaded", cargarHistorial);
   </script>
 </body>
 </html>
