@@ -1,0 +1,14 @@
+{
+  "name": "sigeb-sistema-brigadistas",
+  "version": "1.0.0",
+  "description": "Sistema Integral de Brigadistas - Ejido Ricardo Flores Magón",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "author": "Erik Ortiz Leal",
+  "license": "ISC"
+}
